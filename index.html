@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="content/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet"> -->
+
+</head>
+<body>
+    <!-- <h1>90's ass site</h1> -->
+    <section id="position">
+        <section id="gamescreen">
+
+            <!-- <button id="openpopup">Open Pop</button> -->
+
+
+            <!-- <section id="textContainer"> -->
+                <!-- <button onclick="textInitiate()">Click</button> -->
+                <!-- <p id="textBox"></p> -->
+            <!-- </section> -->
+            <img src="content/alienidle.gif" alt="" id="alien" class="center">
+            <h1>Hunger:</h1>
+            <section class="barnext">
+                <h1 id="hungerCount">100</h1>
+                <div class="bar">
+                    <div id="hungerBar"></div>
+                </div>
+            </section>
+            <section class="barnext">
+                <h1>Sleep:</h1>
+                <h1 id="sleepCount">100</h1>
+                <div class="bar">
+                    <div id="sleepBar"></div>
+                </div>
+            </section>
+            <section class="barnext">
+                <h1>Fun:</h1>
+                <h1 id="funCount">100</h1>
+                <div class="bar">
+                    <div id="funBar"></div>
+                </div>
+            </section>
+            <p id="textBox" class="center"></p>
+        </section>
+        <section id="buttons">
+            <img src="content/eatbutton.png" alt="" id="eatButton" class="button">
+            <img src="content/sleepbutton.png" alt="" id="sleepButton" class="button">
+            <img src="content/gamebutton.png" alt="" id="funButton" class="button">
+        </section>
+            <h3>Alien phone charge:</h3>
+            <div class="longbar">
+        <div id="powerBar"></div>
+    </div>
+    </section>
+
+    <div class="popup" id="intropopup">
+        <div class="popupinside">
+            <section id="intronexttoeach">
+                <img src="content/introimage1.png" alt="">
+                <img class="closeintropopup"src="content/introimage2.png" alt="">
+            </section>
+            <p>This wacky lil alien's phone has run out of power. Keep this wacky lil fella entertained whilst he charges his phone.</p> 
+            <button id="startButton">Begin</button>
+        </div>
+    </div>
+
+    <div class="popup" id="winpopup">
+        <div class="popupinside">
+            <img src="content/aliendancing.gif" alt="">
+            <p>You won!</p> 
+            <!-- <button class="retrypopup">Retry</button> -->
+        </div>
+    </div>
+
+    <div class="popup" id="deadpopup">
+        <div class="popupinside">
+            <img src="content/deathscreen.png" alt="">
+            <p>He dieded</p> 
+            <!-- <button class="retrypopup">Retry</button> -->
+        </div>
+    </div>
+
+    <div class="popup" id="insomniapopup">
+        <div class="popupinside">
+            <img src="content/insomniascreen.png" alt="">
+            <p>He tireded</p> 
+            <!-- <button class="retrypopup">Retry</button> -->
+        </div>
+    </div>
+
+    <div class="popup" id="boredpopup">
+        <div class="popupinside">
+            <img src="content/boredscreen.png" alt="">
+            <p>He borded</p> 
+            <!-- <button class="retrypopup">Retry</button> -->
+        </div>
+    </div>
+
+    <!-- <embed src="content/music/idlemusic.mp3" id="music" loop="true" hidden="true"></embed> -->
+    <!-- Bron: https://stackoverflow.com/questions/6529645/how-to-add-background-music-to-a-web-page -->
+    <script src="js/newjs.js"></script>
+</body>
+</html>
