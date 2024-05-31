@@ -1,19 +1,26 @@
+//Alien
 let alienState = "idle"
 let gameOver = false
 let alienSprite = document.querySelector("#alien")
 alienSprite.src = "content/alienidle.gif"
 
+//Buttons
 const eatButton = document.querySelector("#eatButton")
 const sleepButton = document.querySelector("#sleepButton")
 const funButton = document.querySelector("#funButton")
 const startButton = document.querySelector("#startButton")
+const retryButton1 = document.querySelector("#retryButton1")
+const retryButton2 = document.querySelector("#retryButton2")
+const retryButton3 = document.querySelector("#retryButton3")
 
+//Stats
 let hunger = 50
 let sleep = 50
 let fun = 50
 
 let power = 0
 
+//Stat increase and decrease values
 let hungerIncrease = 5
 let sleepIncrease = 1
 let funIncrease = 3
@@ -23,10 +30,12 @@ let hungerDecrease = 1
 let sleepDecrease = 1
 let funDecrease = 1
 
+//Stat counters
 let hungerCounter = document.querySelector("#hungerCount")
 let sleepCounter = document.querySelector("#sleepCount")
 let funCounter = document.querySelector("#funCount")
 
+//Timers
 let timerHungry 
 let timerTire 
 let timerBore 
@@ -38,24 +47,24 @@ let timerLiving
 let timerTalk 
 let timerClear 
 
-// let timerEat
-// let timerSleep
-// let timerPlay
-
+//Bars
 let hungerBar = document.querySelector("#hungerBar")
 let sleepBar = document.querySelector("#sleepBar")
 let funBar = document.querySelector("#funBar")
 let powerBar = document.querySelector("#powerBar")
 
+//Sound and music
 const eatSound = new Audio("content/eat.ogg") //from Minecraft, used the Minecraft Wiki to download them
 const burpSound = new Audio("content/burp.ogg") //from Minecraft, used the Minecraft Wiki to download them
 const talkSound = new Audio("content/talk.wav")
 
 const introMusic = new Audio("content/music/intromusic.mp3")
+const sleepMusic = new Audio("content/music/sleepmusic.mp3")
+const gameSounds = new Audio("content/music/gamesounds.mp3")
+const gameOverMusic = new Audio("content/music/gameovermusic.mp3")
+const winMusic = new Audio("content/music/winmusic.mp3")
 
-// let music = document.querySelector("#music")
-// music.src = "content/music/idlemusic.mp3"
-
+//Textbox
 let textBox = document.querySelector("#textBox")
 let textRandom
 let text = ""
@@ -63,16 +72,18 @@ let textSpeed = 50
 let textP = 0
 let i = 0
 
-let idleDialogue = ["Bababoey", "Gneep gnorp"]
-let eatDialogue = ["Nom nom nom...", "Tasty..."]
-let sleepDialogue = ["Z z z", "Zzz-zeep zoop..."]
-let funDialogue = ["This reminds me of shooting Zleebians with my Gleep Launcher.", "Beep boop beep boop", "So retro...."]
+//Dialogue
+let idleDialogue = ["Greetings Earthling", "Gneep gnorp", "What's bleebin'?", "Bababoey"]
+let eatDialogue = ["Nom nom nom...", "Tasty...", "Mmmmm..."]
+let sleepDialogue = ["Z z z", "Zzz-zeep zoop...", "Z"]
+let funDialogue = ["This reminds me of shooting Zleebians with my Gleep Launcher.", "Beep boop beep boop", "So retro....", "Zap zap zap!"]
 
 eatButton.addEventListener("click", feed)
 sleepButton.addEventListener("click", snooze)
 funButton.addEventListener("click", play)
 
 startButton.addEventListener("click", startGame)
+retryButton.addEventListener("click", reload)
 
 const winpopup = document.getElementById("winpopup")
 const openpopup = document.getElementById("openpopup")
@@ -86,7 +97,7 @@ const retrypopup = document.getElementsByClassName("retrypopup")
 
     window.onload=function(){
         intropopup.classList.add("open")
-        introMusic.play()
+        // introMusic.play()
     }
 
 function textInitiate(){
@@ -94,22 +105,22 @@ function textInitiate(){
     if (alienState == "idle"){
         textRandom = Math.random() * idleDialogue.length
         text = idleDialogue[Math.floor(textRandom)]
-        console.log(Math.floor(textRandom))
+        // console.log(Math.floor(textRandom))
     }
     else if (alienState == "eating"){
         textRandom = Math.random() * eatDialogue.length
         text = eatDialogue[Math.floor(textRandom)]
-        console.log(Math.floor(textRandom))
+        // console.log(Math.floor(textRandom))
     }
     else if (alienState == "sleeping"){
         textRandom = Math.random() * sleepDialogue.length
         text = sleepDialogue[Math.floor(textRandom)]
-        console.log(Math.floor(textRandom))
+        // console.log(Math.floor(textRandom))
     }
     else if (alienState == "playing"){
         textRandom = Math.random() * funDialogue.length
         text = funDialogue[Math.floor(textRandom)]
-        console.log(Math.floor(textRandom))
+        // console.log(Math.floor(textRandom))
     }
     textWrite(text)
 }
@@ -210,7 +221,8 @@ function gainStat(){
             hunger = Math.min(Math.max(hunger + hungerIncrease, 0), 100)
             eatSound.play()
         }
-        music.pause()
+        sleepMusic.pause()
+        gameSounds.pause()
         alienSprite.src = "content/alieneat.gif"
         // music.src = "content/music/eatmusic.mp3"
         hungerCounter.textContent = hunger
@@ -226,9 +238,10 @@ function gainStat(){
     else if (alienState == "sleeping"){
         if (sleep != 100){
             sleep = Math.min(Math.max(sleep + sleepIncrease, 0), 100)
-            music.play()
+            sleepMusic.play()
         }
         alienSprite.src = "content/aliensleep.gif"
+        gameSounds.pause()
         // music.src = "content/music/sleepmusic.mp3"
         sleepCounter.textContent = sleep
         sleepBar.style.width = sleep + '%'
@@ -246,9 +259,10 @@ function gainStat(){
     else if (alienState == "playing"){
         if (fun != 100){
             fun = Math.min(Math.max(fun + funIncrease, 0), 100)
+            gameSounds.play()
         }
         alienSprite.src = "content/alienplay.gif"
-        music.pause()
+        sleepMusic.pause()
         // music.src = "content/music/playmusic.mp3"
         funCounter.textContent = fun
         funBar.style.width = fun + '%'
@@ -272,7 +286,7 @@ function gainPower(){
 function livingStatus(){
     if(power >= 100){
         winpopup.classList.add("open")
-        gameOverMusic.play()
+        winMusic.play()
         clearTimer()
     }
     else if(hunger <= 0 ){
@@ -309,12 +323,15 @@ function clearTimer(){
     clearInterval(gainPower)
     clearInterval(timerLiving)
     clearInterval(timerTalk)
-    music.pause()
+    textClear()
+    talkSound.pause()
+    sleepMusic.pause()
+    gameSounds.pause()
 }
 
-// function reload(){
-//     location.reload()
-// }
+function reload(){
+    location.reload()
+}
 
 // retrypopup.addEventListener("click", reload)
 
@@ -333,12 +350,26 @@ function startGame(){
     timerClear = setInterval(textClear, 4900)
 }
 
+retryButton1.addEventListener("click", reload)
+retryButton2.addEventListener("click", reload)
+retryButton3.addEventListener("click", reload)
 
-
-let music = new Audio("content/music/sleepmusic.mp3")
-let gameOverMusic = new Audio("content/music/gameovermusic.mp3")
-
-music.addEventListener("ended", function(){
+sleepMusic.addEventListener("ended", function(){
     this.currentTime = 0;
     this.play();
 })
+
+gameSounds.addEventListener("ended", function(){
+    this.currentTime = 0;
+    this.play();
+})
+
+// Bronnen:
+// Gamesounds: Super Mario Land https://www.youtube.com/watch?v=_ZvlayzJHdY&ab_channel=xRavenXP.
+// Sleep Music: Super Mario 64.
+// Death music: Earthbound.
+// Win music: Nunca Me Faltes.
+// Eat sounds: Minecraft.
+// Talk sound: Animal Crossing New Horizons.
+// Pictures assets: Mr Bean, Mother 1 Encyclopedia, Voices of the Void, Earthbound.
+// Background texture: https://opengameart.org/content/arcade-carpet-textures
