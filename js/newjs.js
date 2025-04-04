@@ -166,6 +166,7 @@ function snooze(){
         if (gameOver == false){ 
             alienState = "idle"
             console.log(alienState)
+            sleepMusic.pause()
         }
     }
 }
@@ -181,6 +182,7 @@ function play(){
         if (gameOver == false){ 
             alienState = "idle"
             console.log(alienState)
+            gameSounds.pause()
         }
     }
 }

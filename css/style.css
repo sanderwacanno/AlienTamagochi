@@ -1,6 +1,6 @@
 @font-face {
     font-family: "ComicSans"; 
-    src: url('/content/comicsans.ttf');
+    src: url('../content/comicsans.ttf');
 }
 /* .comic-neue-regular {
     font-family: "Comic Neue", cursive;
@@ -9,7 +9,7 @@
   } */
 
 body {
-    background-image: url("/content/bg.png");
+    background-image: url("../content/bg.png");
     /* background-size: cover;
     background-position: center;
     background-repeat: repeat; */
